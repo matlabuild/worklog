@@ -6,16 +6,8 @@ export default defineConfig({
   plugins: [react()],
   base: '/worklog/',
   build: {
-    outDir: 'docs',
-    assetsDir: 'assets',
-    rollupOptions: {
-      output: {
-        manualChunks: undefined,
-        entryFileNames: 'assets/[name].[hash].js',
-        chunkFileNames: 'assets/[name].[hash].js',
-        assetFileNames: 'assets/[name].[hash].[ext]'
-      }
-    }
+    outDir: 'dist',
+    assetsDir: 'assets'
   },
   resolve: {
     alias: {
