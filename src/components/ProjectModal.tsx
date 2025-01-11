@@ -2,24 +2,37 @@ import { useState } from 'react';
 import { Modal } from './Modal';
 import { deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../config/firebase';
-import * as Icons from 'react-icons/hi';
+
+interface Project {
+  id: string;
+  title: string;
+  description: string;
+  icon: string;
+  estimatedTime: number;
+}
 
 interface ProjectModalProps {
-  project: Project | null;
   onClose: () => void;
+  project: Project | null;
   onSave: (project: Omit<Project, 'id'>) => void;
 }
 
-export function ProjectModal({ project, onClose, onSave }: ProjectModalProps) {
+export function ProjectModal({ onClose, project, onSave }: ProjectModalProps) {
   const [title, setTitle] = useState(project?.title || '');
   const [description, setDescription] = useState(project?.description || '');
   const [estimatedTime, setEstimatedTime] = useState(project?.estimatedTime || '');
-  const [selectedIcon, setSelectedIcon] = useState(project?.icon || 'HiFolder');
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const icon = project?.icon || 'HiFolder';
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSave({ title, description, estimatedTime, icon: selectedIcon });
+    onSave({
+      title,
+      description,
+      icon,
+      estimatedTime: Number(estimatedTime)
+    });
+    onClose();
   };
 
   const handleDelete = async () => {

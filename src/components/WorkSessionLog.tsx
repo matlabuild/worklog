@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { collection, query, where, orderBy, getDocs, Timestamp, deleteDoc, doc, updateDoc, addDoc } from 'firebase/firestore';
+import { collection, query, where, orderBy, getDocs, deleteDoc, doc, updateDoc, addDoc } from 'firebase/firestore';
 import { db } from '../config/firebase';
 import { useAuth } from '../contexts/AuthContext';
 import * as Icons from 'react-icons/hi';
@@ -29,10 +29,9 @@ interface GroupedSessions {
 
 interface WorkSessionLogProps {
   refreshTrigger?: number;
-  onEditSession: (session: WorkSession) => void;
 }
 
-export function WorkSessionLog({ refreshTrigger = 0, onEditSession }: WorkSessionLogProps) {
+export function WorkSessionLog({ refreshTrigger = 0 }: WorkSessionLogProps) {
   const { user } = useAuth();
   const [sessions, setSessions] = useState<WorkSession[]>([]);
   const [groupedSessions, setGroupedSessions] = useState<GroupedSessions>({});
@@ -291,7 +290,7 @@ export function WorkSessionLog({ refreshTrigger = 0, onEditSession }: WorkSessio
             <p className="text-gray-600">No sessions recorded yet.</p>
           ) : (
             <div className="space-y-8">
-              {Object.entries(groupedSessions).map(([date, dateSessions], index) => (
+              {Object.entries(groupedSessions).map(([date, dateSessions]) => (
                 <div key={date}>
                   <h3 className="text-lg font-semibold text-gray-700 mb-4 sticky top-0 bg-gray-50 p-2 rounded z-10">
                     {date}

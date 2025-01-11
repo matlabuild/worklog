@@ -27,15 +27,13 @@ interface WorkStats {
 }
 
 export function FriendProfile({ friendId, onClose }: FriendProfileProps) {
+  const [loading, setLoading] = useState(true);
   const [friend, setFriend] = useState<UserProfile | null>(null);
   const [stats, setStats] = useState<WorkStats | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchFriendProfile = async () => {
       setLoading(true);
-      setError(null);
 
       try {
         // Fetch friend's profile
@@ -75,7 +73,6 @@ export function FriendProfile({ friendId, onClose }: FriendProfileProps) {
         }
       } catch (error) {
         console.error('Error fetching friend profile:', error);
-        setError('Failed to load friend profile. Please try again.');
       } finally {
         setLoading(false);
       }

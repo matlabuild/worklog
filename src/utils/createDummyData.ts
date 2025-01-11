@@ -1,6 +1,5 @@
 import { collection, addDoc, Timestamp } from 'firebase/firestore';
 import { db } from '../config/firebase';
-import { hasOverlap, TimeRange } from './timeUtils';
 
 const TOTAL_MOCK_DAYS = 30; // Number of days to generate mock data for
 

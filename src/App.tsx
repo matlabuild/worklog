@@ -55,9 +55,10 @@ function App() {
       // Check for overlapping sessions
       const hasOverlap = await checkForSessionOverlap(
         user.uid,
-        data.startTime,
-        data.endTime,
-        editingSession?.id
+        {
+          startTime: data.startTime,
+          endTime: data.endTime
+        }
       );
 
       if (hasOverlap) {
@@ -99,11 +100,6 @@ function App() {
       console.error('Error with session:', error);
       alert('Error saving work session. Please try again.');
     }
-  };
-
-  const handleEditSession = (session: any) => {
-    setEditingSession(session);
-    setShowForm(true);
   };
 
   if (!user) {
@@ -195,7 +191,6 @@ function App() {
           <>
             <WorkSessionLog
               refreshTrigger={refreshTrigger}
-              onEditSession={handleEditSession}
             />
             {showForm && (
               <WorkSessionForm

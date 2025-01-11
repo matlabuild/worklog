@@ -270,7 +270,6 @@ export function AnalyticsPage() {
 
       previousSessions.forEach(session => {
         const date = new Date(session.startTime.seconds * 1000);
-        const dateStr = getLocalDateString(date);
         const durationInHours = Math.round((session.endTime.seconds - session.startTime.seconds) / 36) / 100;
         
         // Find the corresponding day in the current period
@@ -282,9 +281,9 @@ export function AnalyticsPage() {
           if (existingDay.previousHours === 0) {
             existingDay.previousFocusLevel = session.focusLevel;
           } else {
-            const totalHours = existingDay.previousHours + durationInHours;
+            const totalHours = (existingDay.previousHours || 0) + durationInHours;
             existingDay.previousFocusLevel = (
-              (existingDay.previousFocusLevel! * existingDay.previousHours!) + 
+              ((existingDay.previousFocusLevel || 0) * (existingDay.previousHours || 0)) + 
               (session.focusLevel * durationInHours)
             ) / totalHours;
           }

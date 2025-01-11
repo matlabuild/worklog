@@ -44,7 +44,6 @@ export function DayCalendar({ sessions, date, onDateChange }: DayCalendarProps) 
       const endTime = new Date(session.endTime.seconds * 1000);
       
       // Calculate position and size
-      const dayStart = new Date(date).setHours(6, 0, 0, 0); // Start at 6 AM
       const totalMinutes = 17 * 60; // 17 hours (6 AM - 11 PM)
       
       const startMinutes = (startTime.getHours() - 6) * 60 + startTime.getMinutes();
